@@ -1,4 +1,4 @@
-package com.database;
+package com.database.module;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +14,11 @@ import lombok.Setter;
  * @since Aug 31, 2020
  */
 @Entity
-@Table(name = "role")
+@Table(name = "department")
 @Setter
 @Getter
-public class Role implements java.io.Serializable {
+public class Department implements java.io.Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

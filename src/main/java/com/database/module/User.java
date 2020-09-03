@@ -1,4 +1,4 @@
-package com.database;
+package com.database.module;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

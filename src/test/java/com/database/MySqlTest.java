@@ -1,5 +1,12 @@
 package com.database;
 
+import com.database.module.Department;
+import com.database.module.Role;
+import com.database.module.User;
+import com.database.repo.DepartmentRepository;
+import com.database.repo.RoleRepository;
+import com.database.repo.UserRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author yanbdong@cienet.com.cn
  * @since Aug 10, 2020
  */
-@SpringBootTest(classes = { Starter.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = { JpaConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Slf4j
 @ExtendWith(SpringExtension.class)
 class MySqlTest {

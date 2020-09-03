@@ -1,13 +1,22 @@
 package com.database;
 
+import com.database.module.Department;
+import com.database.module.Role;
+import com.database.module.User;
+import com.database.repo.DepartmentRepository;
+import com.database.repo.RoleRepository;
+import com.database.repo.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.Assert;
 
@@ -23,8 +32,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @SpringBootApplication
 @EnableTransactionManagement(proxyTargetClass = true)
-//@EnableJpaRepositories("com.database.repo")
-//@EntityScan("con.database.module")
+@EnableJpaRepositories("com.database.repo")
+@EntityScan("com.database.module")
 @Slf4j
 public class Starter {
 
