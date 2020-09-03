@@ -1,0 +1,35 @@
+@startuml
+
+package "com.cienet.mats.node.image.util"{
+interface IImageComparison {
+    {abstract} + IImageComparisonResult executeComparisonTask(IImageComparisonTask task, boolean syncDraw)
+}
+
+interface IImageComparisonTask {
+    {abstract} + setBenchmark(File benchmark)
+    {abstract} + setCompareImage(File benchmark)
+    {abstract} + setExcludeAreaList(List<CmpArea> includeAreaList)
+    {abstract} + setIncludeAreaList(List<CmpArea> excludeAreaList)
+    {abstract} + setImgCompareThreshold(ImgCompareThreshold imgCompareThreshold)
+}
+
+interface IImageComparisonResult {
+    {abstract} + boolean isSuccess()
+    {abstract} + Path getCompareImagePath()
+    {abstract} + Path getBenchmarkPath()
+    {abstract} + Path getDiffImagePath()
+}
+}
+
+package "com.cienet.mats.actions.common" {
+class AbsImageCompareAction {
+    - List<IImageComparisonResult> mComparisonResultList
+    # IImageComparisonResult addComparisonTask(IImageComparisonTask task, boolean syncDraw)
+    # void judgeResult()
+}
+}
+IImageComparison o-- IImageComparisonTask
+IImageComparison o-- IImageComparisonResult
+
+AbsImageCompareAction o-- IImageComparison
+@enduml

@@ -1,0 +1,78 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+    gradlePluginPortal()
+    jcenter()
+}
+
+dependencies {
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.1'
+    implementation group: 'org.zalando.stups', name: 'spring-boot-starter-guava-eventbus', version: '0.5.4'
+    // https://mvnrepository.com/artifact/io.vavr/vavr
+    compileOnly "org.projectlombok:lombok:1.18.12"
+    testCompileOnly "org.projectlombok:lombok:1.18.12"
+    implementation group: 'io.vavr', name: 'vavr', version: '1.0.0-alpha-3'
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.12"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.3.1.Final"
+    implementation "org.mapstruct:mapstruct:1.3.1.Final"
+    implementation group: 'ch.ethz.ganymed', name: 'ganymed-ssh2', version: '262'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.2.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.2.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.3.2.RELEASE'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.5'
+}
+
+task genErrorCode(type: JavaExec) {
+    main = 'com.Test'
+//    println configurations.compile.getAsPath()
+    println sourceSets.main.output.getAsPath()
+    dependsOn classes
+    classpath sourceSets.main.output
+}
+
+task T {
+    doFirst {
+        println 1
+    }
+    doFirst {
+        println 2
+    }
+    doFirst {
+        println 3
+    }
+    doLast {
+        println 4
+    }
+    doLast {
+        println 5
+    }
+    doLast {
+        println 6
+    }
+}
+
+task S {
+    inputs.file("/Users/mats/Desktop/t1.txt")
+    outputs.file("/Users/mats/Desktop/t.txt")
+}
+
+task F {
+    inputs.file(S.outputs)
+    outputs.dir("/Users/mats/Desktop/t")
+}
+
+//wrapper {
+//    gradleVersion = "6.4.1"
+//}

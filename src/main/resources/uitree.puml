@@ -1,0 +1,17 @@
+@startsalt
+{{T
++ LinearLayout: <Root>
+++ ListView
++++ LinearLayout: <Item Root>
+++++ LinearLayout
++++++ TextView: <Reference>
+++++ FrameLayout
++++++ CheckBox: <Target>
+
++++ LinearLayout: <Item Root>
+++++ LinearLayout
++++++ TextView:
+++++ FrameLayout
++++++ CheckBox:
+}}
+@endsalt
