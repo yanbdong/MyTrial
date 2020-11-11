@@ -31,7 +31,11 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.2.RELEASE'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.3.2.RELEASE'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.3.3.RELEASE'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.5'
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.3'
+    implementation group: 'org.openpnp', name: 'opencv', version: '4.3.0-2'
 }
 
 task genErrorCode(type: JavaExec) {
@@ -60,6 +64,25 @@ task T {
     }
     doLast {
         println 6
+    }
+}
+
+task j(type: Jar) {
+    archivesBaseName = 'sc'
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    println compileJava.outputs.files.asPath
+    println processResources.outputs.files.asPath
+    from compileJava.outputs.files
+    from processResources.outputs.files
+    manifest {
+        attributes(
+                'Main-Class': 'com.tool.Starter'
+//                'Main-Class': 'com.reactive.Generator'
+        )
     }
 }
 
