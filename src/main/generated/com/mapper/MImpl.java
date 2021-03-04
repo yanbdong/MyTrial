@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-10-30T16:20:37+0800",
+    date = "2020-11-18T17:14:53+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 1.8.0_152 (Oracle Corporation)"
 )
 public class MImpl implements M {

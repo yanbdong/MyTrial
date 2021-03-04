@@ -4,7 +4,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import lombok.AccessLevel;
+import java.io.File;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,21 +18,12 @@ import lombok.ToString;
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
 @Getter
 @Setter
-//@Builder(access = AccessLevel.PACKAGE)
 @ToString
-public class MessageEvent {
+@Builder
+public class CaseInitInformation {
 
-    private Integer id;
-    private String name;
-
-    public int getSb() {
-        return 1;
-    }
-
-    public int getSb(String s) {
-        return 1;
-    }
+    private String mainDutId;
+    private File reportFolder;
 }

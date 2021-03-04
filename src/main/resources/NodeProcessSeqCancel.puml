@@ -1,0 +1,27 @@
+@startuml
+!include NodeProcessSeq.puml
+
+newpage
+==... Executing==
+==Cancel==
+U -> N: Cancel
+N -> P: Process Destroy
+P -> N: Destroyed
+destroy P
+
+N -> S: Close inputStream
+S -> N: Closed
+destroy S
+
+N -> E: Close inputStream
+E -> N: Closed
+destroy E
+
+N -> P: Process Destroy Again
+P -> N: Destroyed
+destroy P
+
+N -> U: Process Cancel Result
+destroy N
+
+@enduml

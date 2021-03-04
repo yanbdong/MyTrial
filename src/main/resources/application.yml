@@ -41,5 +41,17 @@ spring:
       min-idle: 0
       max-active: 8
       max-wait: -1
+  mvc:
+    view:
+      prefix: classpath:/static
+      suffix: .jsp
+
+yanbdong:
+  yy: 1
+#hh:
+#  a: 1
+#  b: v
+#  c: mm
+
 
 

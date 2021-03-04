@@ -1,0 +1,30 @@
+@startuml
+!include NodeProcessSeq.puml
+
+newpage
+==... Executing==
+==Get result with timeout==
+U -> N: getResult(timeout)
+activate N
+N -> P: Blocking till process done \nor timeout
+N -> N: Timeout
+deactivate N
+
+N --> P: Interrupt process
+N --> S: Interrupt Stdout
+N --> E: Interrupt Errout
+
+N -> U: Process Timeout Result
+destroy N
+
+deactivate P
+P -> P: Self destroy
+destroy P
+deactivate S
+S -> S: Self destroy
+destroy S
+deactivate E
+E -> E: Self destroy
+destroy E
+
+@enduml

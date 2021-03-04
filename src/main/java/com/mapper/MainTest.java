@@ -7,7 +7,7 @@ package com.mapper;
 public class MainTest {
 
     public static void main(String[] args) {
-        A a = new A();
+        A a = A.builder().build();
         a.setName("sb");
         a.setHeart(1);
         B b = M.Instance.mm(a);

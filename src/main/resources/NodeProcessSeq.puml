@@ -1,0 +1,55 @@
+@startuml
+
+actor Main as U
+
+activate U
+
+==Construct NodeProcess#Builder==
+create "NodeProcess#Builder" as B
+U -> B: builder()
+activate B
+U <- B: Builder
+U -> B: setProperties()
+U <- B: Builder
+==Execute NodeProcess==
+U -> B: execute()
+create "NodeProcess" as N
+B -> N: constructor()
+deactivate B
+activate N
+create JavaProcess as P
+N -> P: Create JavaProcess
+P -> N: Create done
+create "JavaProcess#Stdout" as S
+N --> S: Create Stdout
+create "JavaProcess#Errout" as E
+N --> E: Create Errout
+N -> U: NodeProcess
+
+
+P -> P: Process run
+activate P
+S -> S: Record Stdout
+activate S
+E -> E: Record Errout
+activate E
+
+==Executing ... ==
+
+box UserThread0 #LightBlue
+actor U
+participant B
+participant N
+end box
+
+box WorkThread1 #LightGreen
+participant P
+end box
+box WorkThread2 #Green
+participant S
+end box
+box WorkThread3 #DarkGreen
+participant E
+end box
+
+@enduml

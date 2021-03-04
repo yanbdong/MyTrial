@@ -1,0 +1,28 @@
+@startuml
+!include NodeProcessSeq.puml
+
+newpage
+==... Executing==
+==Get result==
+U -> N: getResult()
+activate N
+N -> N: Blocking till process done
+P -> N: Process done
+destroy P
+deactivate N
+N -> N
+activate N
+N -> N: Blocking till Stdout done
+S --> N: Stdout compete
+destroy S
+deactivate N
+N -> N
+activate N
+N -> N: Blocking till Errout done
+E --> N: ErrorCompete
+destroy E
+deactivate N
+N -> U: ProcessResult
+destroy N
+
+@enduml

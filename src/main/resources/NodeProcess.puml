@@ -1,0 +1,56 @@
+@startuml
+
+package "com.cienet.cats.node.framework.thread"{
+class NodeProcess {
+    - <b><i><color:blue>ExecutorService</color></i></b>
+___
+    + build(): Builder
+---
+    + cancel(): ProcessInfo
+    + getResult(): ProcessInfo
+    + getResult(long timeout): ProcessInfo
+---
+    + <b><i><color:blue>shutdownNowProcessPool()</color></i></b>
+    + <b><i><color:blue>shutdownProcessPool()</color></i></b>
+    + <b><i><color:blue>startProcessPool()</color></i></b>
+}
+
+note right of NodeProcess: "new ThreadPoolExecutor(3, Integer.MAX_VALUE,\n 60L, new SynchronousQueue<>());"
+
+
+class "Builder" {
++ execute(): NodeProcess
++ executeWithSystemExecutionErrorCheck(): NodeProcess
+---
++ enableFlush(): Builder
++ ignoreOutput(): Builder
++ mergeOutputToFile(): Builder
++ mergeOutputToResultAndFile(): Builder
++ recordOutputToResult(): Builder
++ recordOutputToStringAndFile(): Builder
++ recordOutputToStringAndSameFile(): Builder
++ recordOutputToStringThenWriteToFile(): Builder
++ setCommand(): Builder
++ setCommand(): Builder
++ setCommand(): Builder
++ setDecode(): Builder
++ setDestroyHandler(): Builder
++ setEnv(): Builder
++ setWaitTime(): Builder
++ setWorkDirectory(): Builder
+}
+
+"Builder" -down-* NodeProcess
+
+class "ProcessInfo" {
++ getErrout(): String
++ getExitVal(): int
++ getStdout(): String
+---
++ getRawCommand(): String
++ hasRecordToFile(): boolean
+}
+
+ProcessInfo -left-* NodeProcess
+
+@enduml
