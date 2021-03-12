@@ -1,5 +1,6 @@
 package com.mapper;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class A {
 
+    @NotNull
     private String name;
     private int heart;
     private Car car;

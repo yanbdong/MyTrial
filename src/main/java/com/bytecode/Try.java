@@ -19,6 +19,7 @@ public class Try {
     private final int mINT = 1;
     public int mInt = 1;
 
+
     public static void main(String[] args) {
         final int a = 1;
         int b;
@@ -42,6 +43,11 @@ public class Try {
                 System.out.println("7");
             }
         }
+    }
+
+    public void t() {
+        ExtraFuncEventPublisher.getInstance().addListener(this::setString);
+        ExtraFuncEventPublisher.getInstance().removeListener(this::setString);
     }
 
     void mVoid() throws Throwable {
@@ -72,5 +78,9 @@ public class Try {
 
     public void setA(int i) {
         i++;
+    }
+
+    public int setString(String s) {
+        return 0;
     }
 }

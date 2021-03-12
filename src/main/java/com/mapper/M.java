@@ -44,7 +44,7 @@ public interface M {
 //    @Mapping(target = "startTime", expression = "java(LocalDateTime.ofInstant(Instant.ofEpochSecond(b.hh), ZoneId.systemDefault()))")
     @Mapping(target = "startTime", source = "b.hh")
     @Mapping(target = "duration", source = "b.hh", dependsOn = "startTime")
-    HasBuilder mm(A a, B b);
+    HasBuilder.HasBuilderBuilder mm(A a, B b);
 
     default LocalDateTime intToTime(int time) {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(time), ZoneId.systemDefault());

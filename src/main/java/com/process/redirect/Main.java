@@ -2,6 +2,7 @@ package com.process.redirect;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author yanbdong@cienet.com.cn
@@ -10,11 +11,13 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, FunctionException {
-//        ProcessBuilder builder = new ProcessBuilder(Arrays.asList("echo", "devices", ">", "/Users/mats/Desktop/r1.txt"));
-////        builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+//        ProcessBuilder builder = new ProcessBuilder(Arrays.asList("adb devices > /Users/mats/Desktop/r1.txt"));
+        ProcessBuilder builder = new ProcessBuilder(Arrays.asList("sh", "-c","adb devices > /Users/mats/Desktop/r1.txt"));
+//        ProcessBuilder builder = new ProcessBuilder(Arrays.asList("devices ",">","/Users/mats/Desktop/r2.txt"));
+        builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 //        builder.redirectOutput(ProcessBuilder.Redirect.to(new File("/Users/mats/Desktop", "redirect.txt")));
-//        builder.start();
-        yes();
+        builder.start();
+//        yes();
     }
 
     public static void yes() throws FunctionException {
