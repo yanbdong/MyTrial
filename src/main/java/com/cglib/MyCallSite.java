@@ -1,13 +1,7 @@
 package com.cglib;
 
 import org.springframework.cglib.beans.BeanGenerator;
-import org.springframework.cglib.proxy.Callback;
-import org.springframework.cglib.proxy.CallbackFilter;
-import org.springframework.cglib.proxy.Enhancer;
-import org.springframework.cglib.proxy.InvocationHandler;
-import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
-import org.springframework.cglib.proxy.NoOp;
+import org.springframework.cglib.proxy.*;
 import org.springframework.cglib.reflect.FastClass;
 import org.springframework.cglib.reflect.FastMethod;
 
@@ -17,10 +11,10 @@ import java.lang.reflect.Method;
  * @author yanbdong@cienet.com.cn
  * @since Mar 12, 2021
  */
-public class Basic {
+public class MyCallSite {
 
     public static void main(String[] args) {
-        new Basic().t();
+        new MyCallSite().t();
     }
 
     public String getA() {
@@ -33,7 +27,7 @@ public class Basic {
 
     void t() {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(Basic.class);
+        enhancer.setSuperclass(MyCallSite.class);
         enhancer.setCallbacks(new Callback[]{new MethodInterceptor() {
 
             @Override
@@ -64,7 +58,7 @@ public class Basic {
                 }
             }
         });
-        Basic b = (Basic) enhancer.create();
+        MyCallSite b = (MyCallSite) enhancer.create();
         b.getA();
         b.getB();
     }
@@ -75,7 +69,7 @@ public class Basic {
     }
 
     void fastClass(){
-        FastClass fastClass = FastClass.create(Basic.class);
+        FastClass fastClass = FastClass.create(MyCallSite.class);
         FastMethod method = fastClass.getMethod("getA", new Class<?>[0]);
 //        method.invoke()
     }
