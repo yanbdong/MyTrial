@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,17 +49,19 @@ public class Tool {
 //                    }).forEach(printer::printRecord);
 //
 //        }
-        read0(new File("/Users/mats/Desktop/lib1.csv"), new File("/Users/mats/Desktop/lib2.csv"));
+//        read0(new File("/Users/mats/Desktop/lib1.csv"), new File("/Users/mats/Desktop/lib2.csv"));
+//        read1(new File("/Users/mats/Desktop/1.txt"), new File("/Users/mats/Desktop/lib2.csv"));
+        read(new File("/Users/mats/Desktop/lib2.csv"), new File("/Users/mats/Desktop/lib3.csv"));
     }
 
     public static void read(File file, File out) throws IOException {
         List<CSVRecord> records = new ArrayList<>();
         CSVRecord temp = null;
-        try (CSVParser parser = CSVFormat.DEFAULT.parse(new BufferedReader(new FileReader(file)))) {
+        try (CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new BufferedReader(new FileReader(file)))) {
             for (CSVRecord record : parser.getRecords()) {
                 if (temp == null) {
                 } else {
-                    if (Objects.equals(record.get(1), temp.get(1))) {
+                    if (Objects.equals(record.get(0), temp.get(0))) {
                         continue;
                     } else {
                     }
@@ -70,7 +73,7 @@ public class Tool {
         try (CSVPrinter printer = CSVFormat.DEFAULT.withHeader("OSS Name", "Version", "Source", "License Agreement", "Used By")
                 .print(new BufferedWriter(new FileWriter(out)))) {
             for (CSVRecord record : records) {
-                printer.printRecord(record.get(0) + ":" + record.get(1), "https://mvnrepository.com", record.get(2), "Apache 2.0", "Node");
+                printer.printRecord(record);
             }
         }
 
@@ -93,6 +96,30 @@ public class Tool {
                     printer.printRecord(record.get(0), record.get(2), tuple2._2(), tuple2._1(), "Node");
                 } catch (Exception e) {
                     log.info("Error: " + record, e);
+                }
+            }
+        }
+
+    }
+
+    public static void read1(File file, File out) throws IOException {
+        List<String[]> records = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while (null != (line = reader.readLine())) {
+                records.add(line.split(":"));
+            }
+        }
+        Crawler crawler = new Crawler();
+        try (CSVPrinter printer = CSVFormat.DEFAULT.withHeader("OSS Name", "Version", "Source", "License Agreement", "Used By")
+                .print(new BufferedWriter(new FileWriter(out)))) {
+            for (String[] record : records) {
+                try {
+                    URL url = new URL("https", "mvnrepository.com", "/artifact/" + String.join("/", record[1].trim(), record[2].trim(), record[3].trim()));
+                    Tuple2<String, String> tuple2 = crawler.get(url);
+                    printer.printRecord(record[1].trim() + ":" + record[2].trim(), record[3].trim(), tuple2._2(), tuple2._1(), "Node");
+                } catch (Exception e) {
+                    log.info("Error: " + Arrays.asList(record), e);
                 }
             }
         }
