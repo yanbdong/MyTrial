@@ -50,8 +50,8 @@ public class Tool {
 //
 //        }
 //        read0(new File("/Users/mats/Desktop/lib1.csv"), new File("/Users/mats/Desktop/lib2.csv"));
-//        read1(new File("/Users/mats/Desktop/1.txt"), new File("/Users/mats/Desktop/lib2.csv"));
-        read(new File("/Users/mats/Desktop/lib2.csv"), new File("/Users/mats/Desktop/lib3.csv"));
+        read1(new File("/Users/mats/Desktop/1.txt"), new File("/Users/mats/Desktop/lib2.csv"));
+//        read(new File("/Users/mats/Desktop/lib2.csv"), new File("/Users/mats/Desktop/lib3.csv"));
     }
 
     public static void read(File file, File out) throws IOException {
@@ -107,7 +107,15 @@ public class Tool {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while (null != (line = reader.readLine())) {
-                records.add(line.split(":"));
+                String[] temp = line.split(":");
+                if (records.size() > 0) {
+                    String[] prev = records.get(records.size() - 1);
+                    if (Objects.equals(temp[1], prev[1]) && Objects.equals(temp[2], prev[2])) {
+                        records.set(records.size() - 1, temp);
+                        continue;
+                    }
+                }
+                records.add(temp);
             }
         }
         Crawler crawler = new Crawler();
