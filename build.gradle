@@ -135,6 +135,6 @@ task F {
     outputs.dir("/Users/mats/Desktop/t")
 }
 
-//wrapper {
-//    gradleVersion = "6.4.1"
-//}
+wrapper {
+    gradleVersion = "6.4.1"
+}
