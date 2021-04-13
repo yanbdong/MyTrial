@@ -1,0 +1,90 @@
+@startuml
+title New Interface For CaseExecutor
+
+package "com.cienet.cats.node.core.cases.impl"{
+class CaseExecutorClient {
+<i>work as a Aggregation Root</i>
+---
+    - <i><b><color:blue>Cache</color></b></i>
+}
+
+interface "ICaseExecutorClient" {
+For RPC
+---
++ startCase(ICaseInformation caseInfo, ICaseToken token): ICaseExecutionEnvironmentInformation
+...
+}
+
+note bottom of ICaseExecutorClient: "Check a token related DetachModeContextManager\n existed or not"
+
+interface "ICaseExtraExecutorClient" {
+For Backdoor Controller
+---
++ prepareCaseContextForInternalServerMode(): ICaseExtraController
+}
+
+'ICaseExecutorClient -right-> ICaseExtraExecutorClient
+
+CaseExecutorClient -up-|> ICaseExecutorClient
+CaseExecutorClient -up-|> ICaseExtraExecutorClient
+
+interface "ICaseExtraController" {
+
++ getCaseToken(): ICaseToken
++ getCaseExecutionEnvironmentInformation(): Optional<ICaseExecutionEnvironmentInformation>
++ initCaseForExecutable(ICaseInformation caseInfo): void <i>For python compatibility</i>
++ disableDutControl(): void
++ queryCaseState(): DetachModeCaseState
++ cancelCase(): ICaseOutput
++ errorCase(NodeException e): ICaseOutput
++ waitForCaseResult(long timeout): ICaseOutput
++ getRemarkListener(): Consumer<RemarkInformation>
+}
+
+ICaseExtraController "1" <-up-o "1" ICaseExtraExecutorClient
+
+class Cache {
+<i>work as a Resource Repository</i>
+--
+- cache<ICaseToken, DetachModeContextManager>
+}
+
+class DetachModeContextManager {
+<i> An entity</i>
+---
+- ICaseToken mCaseToken
+---
+- DetachModeCaseContext mContext
+- AtomicReference<DetachModeCaseState> mCaseState
+- CaseTimer mCaseTimer:
+- DutControllerAccessor mDutControllerAccessor
+- RemarkCollector mRemarkCollector
+- ICaseOutput mCaseOutput: <i> Work as a Value Object</i>
+}
+
+CaseExecutorClient "1" *-down-> "1" Cache
+CaseExecutorClient "1" o-down-> "*" DetachModeContextManager
+}
+
+
+package "com.cienet.cats.node.service.task"{
+
+class Interpreter {
+- ICaseExtraController mCaseController
+___
++ interpret(): ICaseOutput
+}
+
+class AbstractDeviceTask {
+~ transformCaseOutputToCaseReport(ICaseOutput caseOutput, CaseReport caseReport)
+---
+# executeCase(): CaseReport
+}
+
+AbstractDeviceTask "1" *-up-> "*" Interpreter
+
+}
+Interpreter "1" *-left-> "1" ICaseExtraController
+
+
+@enduml
