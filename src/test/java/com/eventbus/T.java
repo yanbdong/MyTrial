@@ -17,6 +17,6 @@ class T {
 
     @Test
     void testSimple() {
-        mEventBusSupport.post(MessageEvent.builder().id(1).build());
+        mEventBusSupport.post(new MessageEvent().id(1).name(""));
     }
 }

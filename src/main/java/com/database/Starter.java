@@ -30,10 +30,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author yanbdong@cienet.com.cn
  * @since Sep 02, 2020
  */
-@SpringBootApplication
-@EnableTransactionManagement(proxyTargetClass = true)
-@EnableJpaRepositories("com.database.repo")
-@EntityScan("com.database.module")
+//@SpringBootApplication
+//@EnableTransactionManagement(proxyTargetClass = true)
+//@EnableJpaRepositories("com.database.repo")
+//@EntityScan("com.database.module")
 @Slf4j
 public class Starter {
 

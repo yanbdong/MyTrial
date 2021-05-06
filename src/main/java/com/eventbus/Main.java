@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author yanbdong@cienet.com.cn
  * @since Aug 07, 2020
  */
-@SpringBootApplication
+//@SpringBootApplication
 @Slf4j
 public class Main implements ApplicationListener<ApplicationEvent> {
 
@@ -31,8 +31,8 @@ public class Main implements ApplicationListener<ApplicationEvent> {
         EventBusSupport eventBusSupport = context.getBean(EventBusSupport.class);
 
         MessageEvent event = context.getBean(MessageEvent.class);
-        event.setId(7);
-        event.setName("sync");
+        event.id(7);
+        event.name("sync");
         eventBusSupport.post(event);
 
         messagePublisher.sendMessage(event);

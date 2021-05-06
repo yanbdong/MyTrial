@@ -1,15 +1,13 @@
 package com.eventbus;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yanbdong@cienet.com.cn
@@ -22,6 +20,7 @@ import lombok.ToString;
 @Setter
 //@Builder(access = AccessLevel.PACKAGE)
 @ToString
+@Accessors(fluent = true, chain = true)
 public class MessageEvent {
 
     private Integer id;

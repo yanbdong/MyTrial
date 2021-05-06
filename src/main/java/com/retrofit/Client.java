@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since Nov 17, 2020
  */
 //@ComponentScan(basePackageClasses = ReadFromCustomizedProperties.class, basePackages = "com.retrofit")
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @ConfigurationProperties("yanbdong")
 @EnableConfigurationProperties(ReadFromCustomizedProperties.class)
 @Slf4j

@@ -16,7 +16,7 @@ public class EventListener {
 
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
-        log.info("Subscribe message:{}, {}, {}", event.getId(), event.getSb(), event.getSb(null));
+        log.info("Subscribe message:{}, {}, {}", event.id(), event.getSb(), event.getSb(null));
     }
 
 }

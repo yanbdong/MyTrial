@@ -6,7 +6,9 @@ import com.database.module.User;
 import com.database.repo.DepartmentRepository;
 import com.database.repo.RoleRepository;
 import com.database.repo.UserRepository;
-
+import java.util.Date;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.Assert;
-
-import java.util.Date;
-import java.util.List;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author yanbdong@cienet.com.cn
