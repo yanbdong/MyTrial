@@ -65,7 +65,7 @@ dependencies {
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
     implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.0'
 
-
+    implementation group: 'org.activiti', name: 'activiti-engine', version: '6.0.0'
 
     testCompile("org.junit.jupiter:junit-jupiter-params:5.5.2")
     testCompile group: 'org.mock-server', name: 'mockserver-junit-jupiter', version: '5.10.0'

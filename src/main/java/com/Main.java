@@ -1,6 +1,7 @@
 package com;
 
 import java.util.Map;
+import java.util.Objects;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import com.database.MyBatisStarter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -37,6 +37,36 @@ public class Main implements CommandLineRunner {
         ApplicationContext applicationContext = builder.run();
         Map<String, DataSource> map = applicationContext.getBeansOfType(DataSource.class);
         log.debug(map.toString());
+    }
+
+    private void boxAndUnbox() {
+        Integer I = 1;
+        int i = I;
+    }
+
+    private void compare() {
+//        Integer I1 = 1;
+//        Integer I2 = 1000000;
+//        boolean b1 = I1 == I2;
+//        boolean b2 = I1 == 1;
+//        long l1 = 11111111111111111L;
+//        long l2 = 111111111111111112L;
+//        boolean b3 = l1 == l2;
+        boolean b4 = null == null;
+    }
+
+    private void compare1() {
+        Objects a = null;
+        boolean b4 = null == a;
+    }
+
+    private void compare2() {
+        Objects a = null;
+        boolean b4 = a == null;
+    }
+
+    private void compare3(String s) {
+        boolean b4 = s + "1" == "s1";
     }
 
 
