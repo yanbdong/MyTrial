@@ -1,21 +1,24 @@
 package com.database;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author yanbdong@cienet.com.cn
  * @since Aug 31, 2020
  */
-@Order(Ordered.HIGHEST_PRECEDENCE)
-//@Configuration
-@EnableTransactionManagement(proxyTargetClass = true)
-@EnableJpaRepositories("com.database.repo")
-@EntityScan("com.database.module")
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Configuration
+//@EnableTransactionManagement(proxyTargetClass = true)
+//@EnableJpaRepositories("com.database.repo")
+//@EntityScan("com.database.module")
 public class JpaConfiguration {
+
+//    @Bean
+//    ServletRegistrationBean h2servletRegistration(){
+//        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+//        registrationBean.addUrlMappings("/h2-console/*");
+//        return registrationBean;
+//    }
 
 //    PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
 //        return new PersistenceExceptionTranslationPostProcessor();

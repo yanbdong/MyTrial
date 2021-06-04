@@ -9,8 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 
+import com.auto.wire.AutoWireImpl;
+import com.auto.wire.IAutoWire;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,10 +26,15 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @SpringBootApplication()
 @Slf4j
-public class Main implements CommandLineRunner {
+public class Main implements CommandLineRunner, ApplicationListener<ApplicationEvent> {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private IAutoWire autoWire;
+    @Autowired
+    private AutoWireImpl autoWireImpl;
 
     /**
      * {@link #run(String...)}
@@ -32,6 +42,9 @@ public class Main implements CommandLineRunner {
      * @param args
      */
     public static void main(String[] args) {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,
+            "/Users/yanbodong/Documents/workspace/MyTrial/com/sun/proxy");
+
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Main.class);
         builder.web(WebApplicationType.NONE);
         ApplicationContext applicationContext = builder.run();
@@ -73,6 +86,11 @@ public class Main implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Map<String, DataSource> map = applicationContext.getBeansOfType(DataSource.class);
-        log.debug(map.toString());
+        log.info(map.toString());
+    }
+
+    @Override
+    public void onApplicationEvent(final ApplicationEvent event) {
+        log.info("ApplicationEvent: {}", event);
     }
 }

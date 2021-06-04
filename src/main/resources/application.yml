@@ -6,22 +6,31 @@ spring:
 #      username: root
 #      password: sql159159
 #    db_h2:
-    driver-class-name: org.h2.Driver
-    schema: classpath:db/schema-h2.sql
-    data: classpath:db/data-h2.sql
-    url: jdbc:h2:mem:test
-    username: root
-    password: test
-  jpa:
-    database: MYSQL
-    show-sql: true
-
-    hibernate:
-      ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+#      driver-class-name: org.h2.Driver
+#      schema: classpath:db/schema-h2.sql
+#      data: classpath:db/data-h2.sql
+#      url: jdbc:h2:mem:test
+#      username: root
+#      password: test
+    lztj: # dev
+      connection-init-sql: set names utf8mb4
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://rm-8vbe6o359761y8pv66o.mysql.zhangbei.rds.aliyuncs.com:3306/lingzhu-rec-dev?useSSL=false&characterEncoding=UTF-8&autoReconnect=true&allowMultiQueries=true&useAffectedRows=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+      username: lingzhu_dev
+      password: Pass2021@01%12
+  h2:
+    console:
+      enabled: true
+#  jpa:
+#    database: MYSQL
+#    show-sql: true
+#
+#    hibernate:
+#      ddl-auto: update
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5Dialect
   jackson:
     #日期格式化
     date-format: yyyy-MM-dd HH:mm:ss

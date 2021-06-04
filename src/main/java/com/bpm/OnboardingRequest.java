@@ -27,10 +27,14 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
+
+import lombok.SneakyThrows;
 
 public class OnboardingRequest {
 
-    public static void main(String[] args) throws ParseException {
+    public void run() throws ParseException {
         ProcessEngineConfiguration cfg = new StandaloneProcessEngineConfiguration()
             .setJdbcUrl("jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000")
             .setJdbcUsername("sa")
@@ -44,7 +48,7 @@ public class OnboardingRequest {
 
         RepositoryService repositoryService = processEngine.getRepositoryService();
         Deployment deployment = repositoryService.createDeployment()
-            .addClasspathResource("onboarding.bpmn20.xml").deploy();
+            .addClasspathResource("bpmn/bpmn.xml").deploy();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
             .deploymentId(deployment.getId()).singleResult();
         System.out.println(
@@ -131,4 +135,10 @@ public class OnboardingRequest {
         }
         scanner.close();
     }
+
+//    @SneakyThrows
+//    @Override
+//    public void onApplicationEvent(final ApplicationReadyEvent event) {
+////        this.run();
+//    }
 }
